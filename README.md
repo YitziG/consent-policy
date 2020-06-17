@@ -1,4 +1,4 @@
-## How to make your project GDPR Compliant
+## How to Make Your Project GDPR Compliant
 
 Our legal team requires us to ensure that all new and existing projects are fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
