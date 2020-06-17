@@ -1,24 +1,24 @@
 ## How to make your project GDPR Compliant
 
-In order to stay on the right side of the law, it is important that all teams ensure that all new and existing projects are fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
+Our legal team requires us to ensure that all new and existing projects are fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
-A big part of being GDPR compliant is getting explicit user permission when creating or accessing information that could potentially be used to identify and/or track users.
+A big part of being GDPR compliant is getting explicit user permission when creating or accessing information that could potentially be used to identify or track users.
 
-For certain categories of user information (i.e. Cookies), permission needs to be requested from the user at runtime, before the "sensitive" code can be legally executed.
+For specific categories of user information (i.e., Cookies), permission needs to be requested from the user at runtime, before we can execute the "sensitive" code.
 
-Therefore, it is important to have a clear picture of exactly which categories of premissions your app will need to request so that you can do so in the right place and at the right time.
+Therefore, it is crucial to have a clear picture of exactly which categories of permissions your app will need to request so that you can do so in the right place and at the right time.
 
 ### Big Picture
 
-In order to make this transition as painless as possible, we provide a small javascript library that you can include in your apps header or in any location where you are pulling in external scripts(i.e. main.js).
+To make this transition as painless as possible, we provide a small javascript library that you can include in your app's header or in any location where you are pulling in external scripts(i.e., main.js).
 
-Using this library you can get a boolean flag map from the server that describes exactly which permissions your app must request. 
+Using this library, you can get a boolean flag map from the server that describes precisely which permissions your app must request. 
 
-Using [EJS](https://ejs.co) or any other templating language or framework, you can bind those values to DOM elements displaying and hiding permission requests as appropriatte.
+Using [EJS](https://ejs.co) or any other templating language or framework, you can bind those values to DOM elements displaying and hiding permission requests as appropriate.
 
 ### Integration
 
-The first step is to include include our script in you project header (or wherever you pull in external scripts).
+The first step is to include our script in your project header (or wherever you pull in external scripts).
 
 ```html
 <!doctype html>
@@ -37,7 +37,7 @@ The first step is to include include our script in you project header (or wherev
 </html>
 ```
 
-**Tip:** If you are certain that your project doesn't need to request permissions until after the page finishes loading you can include our script tag at the end of your `<body>` for a faster page load.
+**Tip:** If you are sure that your project doesn't need to request permissions until after the page finishes loading, you can include our script tag at the end of your `<body>` for a faster page load.
   
 ```html
 <body>  
@@ -46,7 +46,7 @@ The first step is to include include our script in you project header (or wherev
 </body>
 ```
 
-Once the page is done loading you can initialize the library provided "consent policy" object with the live data from the server like so: 
+Once the page finishes loading you can initialize the library provided "consent policy" object with the live data from the server like so: 
 ```javascript
 consentPolicy.init(policy);
 ```
@@ -56,7 +56,7 @@ You can access the flag map with:
 consentPolicy.categories
 ```
 
-To visualize this you can type `consentPolicy.categories` in the console and you will get something like this:
+To visualize this you can type `consentPolicy.categories` in the console, and you will get something like this:
 ```json
 {
   marketing: false, 
@@ -65,7 +65,7 @@ To visualize this you can type `consentPolicy.categories` in the console and you
 };
 ```
 
-It is now trivial to bind relevant parts of your policy to the appropriatte fields on this object!
+It is now trivial to bind relevant parts of your policy to the appropriate fields on this object!
 
 ```html
 <p>Please grant the following required permissions:</p>
@@ -93,7 +93,7 @@ It is now trivial to bind relevant parts of your policy to the appropriatte fiel
 <% } %>
 ```
 
-Using the example map from above the rendered html would look like so:
+Using the example map from above the rendered HTML would look like so:
 ```html
 <p>Please grant the following required permissions:</p>
 
@@ -107,4 +107,3 @@ And in the browser like so:
 Please grant the following required permissions:
 
 - [ ] Stability
-
