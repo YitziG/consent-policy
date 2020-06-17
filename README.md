@@ -1,37 +1,111 @@
-## Welcome to GitHub Pages
+## How to make your project GDPR Compliant
 
-You can use the [editor on GitHub](https://github.com/YitziG/consent-policy/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+In order to stay on the right side of the law, it is important that all teams ensure that all new and existing projects are fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+A big part of being GDPR compliant is getting explicit user permission when creating or accessing information that could potentially be used to identify and/or track users.
 
-### Markdown
+For certain categories of user information (i.e. Cookies), permission needs to be requested from the user at runtime, before the "sensitive" code can be legally executed.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Therefore, it is important to have a clear picture of exactly which categories of premissions your app will need to request so that you can do so in the right place and at the right time.
 
-```markdown
-Syntax highlighted code block
+### Big Picture
 
-# Header 1
-## Header 2
-### Header 3
+In order to make this transition as painless as possible, we provide a small javascript library that you can include in your apps header or in any location where you are pulling in external scripts(i.e. main.js).
 
-- Bulleted
-- List
+Using this library you can get a boolean flag map from the server that describes exactly which permissions your app must request. 
 
-1. Numbered
-2. List
+Using [EJS](https://ejs.co) or any other templating language or framework, you can bind those values to DOM elements displaying and hiding permission requests as appropriatte.
 
-**Bold** and _Italic_ and `Code` text
+### Integration
 
-[Link](url) and ![Image](src)
+The first step is to include include our script in you project header (or wherever you pull in external scripts).
+
+```html
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Awesome Wix Integration!</title>
+  <!-- Here is a good place for our script tag -->
+  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"/></script>
+</head>
+
+<body>  
+  <p>Hello world! This is our teams integration.</p>
+</body>
+</html>
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+**Tip:** If you are certain that your project doesn't need to request permissions until after the page finishes loading you can include our script tag at the end of your `<body>` for a faster page load.
+  
+```html
+<body>  
+  <p>Hello world! This is our teams integration.</p>
+  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"/></script>
+</body>
+```
 
-### Jekyll Themes
+Once the page is done loading you can initialize the library provided "consent policy" object with the live data from the server like so: 
+```javascript
+consentPolicy.init(policy);
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/YitziG/consent-policy/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+You can access the flag map with:
+```javascript
+consentPolicy.categories
+```
 
-### Support or Contact
+To visualize this you can type `consentPolicy.categories` in the console and you will get something like this:
+```json
+{
+  marketing: false, 
+  logging: false, 
+  stability: true
+};
+```
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+It is now trivial to bind relevant parts of your policy to the appropriatte fields on this object!
+
+```html
+<p>Please grant the following required permissions:</p>
+
+<% if (consentPolicy.categories.marketing) { %>
+<div>
+  <input type="checkbox" id="marketing" name="marketing"
+         checked>
+  <label for="marketing">Marketing</label>
+</div>
+<% } %>
+  
+<% if (consentPolicy.categories.logging) { %>
+<div>
+  <input type="checkbox" id="logging" name="logging">
+  <label for="logging">Logging</label>
+</div>
+<% } %>
+
+<% if (consentPolicy.categories.stability) { %>
+<div>
+  <input type="checkbox" id="stability" name="stability">
+  <label for="stability">Stability</label>
+</div>
+<% } %>
+```
+
+Using the example map from above this would render like so:
+```html
+<p>Please grant the following required permissions:</p>
+
+<div>
+  <input type="checkbox" id="stability" name="stability">
+  <label for="stability">Stability</label>
+</div>
+```
+
+<p>Please grant the following required permissions:</p>
+
+<div>
+  <input type="checkbox" id="stability" name="stability">
+  []Stability
+</div>
