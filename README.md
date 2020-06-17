@@ -42,7 +42,7 @@ The first step is to include our script in your project header (or wherever you 
 ```html
 <body>  
   <p>Hello world! This is our teams integration.</p>
-  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"/></script>
+  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"></script>
 </body>
 ```
 
