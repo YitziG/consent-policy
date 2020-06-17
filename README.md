@@ -28,7 +28,7 @@ The first step is to include our script in your project header (or wherever you 
   <meta charset="utf-8">
   <title>Awesome Wix Integration!</title>
   <!-- Here is a good place for our script tag -->
-  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"/></script>
+  <script src="https://static.parastorage.com/services/consent-policy-client/1.0.0/app.bundle.js"></script>
 </head>
 
 <body>  
