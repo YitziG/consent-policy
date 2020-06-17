@@ -93,7 +93,7 @@ It is now trivial to bind relevant parts of your policy to the appropriatte fiel
 <% } %>
 ```
 
-Using the example map from above this would render like so:
+Using the example map from above the rendered html would look like so:
 ```html
 <p>Please grant the following required permissions:</p>
 
@@ -102,10 +102,9 @@ Using the example map from above this would render like so:
   <label for="stability">Stability</label>
 </div>
 ```
+And in the browser like so:
 
-<p>Please grant the following required permissions:</p>
+Please grant the following required permissions:
 
-<div>
-  <input type="checkbox" id="stability" name="stability">
-  []Stability
-</div>
+- [ ] Stability
+
