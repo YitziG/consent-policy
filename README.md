@@ -210,7 +210,7 @@ This process is at an experimental stage, so you are going to want a way to bypa
 We recommend wrapping all the permission dependant conditional logic in an `if` statement.
 
 ```javascript
-If(gdprEnforced){
+if(gdprEnforced){
 //Run the conditional stuff here
 }else{
 //Do your regular stuff
