@@ -110,7 +110,7 @@ Please grant the following required permissions:
 
 ### Real-time Permission Checks
 
-Now that you are requesting the appropriate permissions, you are going to want to make sure that the user has indeed granted the necessary consent before you store any identifying data in the user's browser or on Wix servers. We provide an easy way to do that integrated right into our ["data-capsule" library](https://github.com/wix/data-capsule).
+Now that you are requesting the appropriate permissions, you are going to want to make sure that the user has indeed granted the necessary consent before you store any identifying data in the user's browser or on Wix servers. We provide an easy way to do that inside our ["data-capsule"](https://github.com/wix/data-capsule) library.
 
 The data capsule library is a neat and easy way to store key/value data for your application. You can use it to store data on the user's browsers local storage as well as on Wix servers.
 
