@@ -108,7 +108,7 @@ Please grant the following required permissions:
 
 - [ ]  Stability
 
-### Real-time Permission Checks
+### Real-Time Permission Checks
 
 Now that you are requesting the appropriate permissions, you are going to want to make sure that the user has indeed granted the necessary consent before you store any identifying data in the user's browser or on Wix servers. We provide an easy way to do that inside our ["data-capsule"](https://github.com/wix/data-capsule) library.
 
