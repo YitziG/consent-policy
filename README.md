@@ -159,3 +159,58 @@ try {
   }
 }
 ```
+
+### Logging Permission Requests, Responses, and Issues
+Since requesting and setting permissions at runtime can be complex and brings a new layer of dynamic branching to your application it is important to log app interactions and flow.
+
+The easiest way to do this is with the Wix [bi-logger](https://github.com/shahata/shahata.github.io/blob/master/sudoku-solver/bower_components/wix-bi-logger/README.md) package.
+
+Once again:
+```bash
+npm install --save wix-bi-logger
+```
+
+And at the top of the relevant class:
+```javascript
+import logger from `wix-bi-logger`
+```
+You can now log all relevant events and errors with:
+`logger.log(event, category);` and `logger.error(event, category);`
+
+For example using our previous example you might do something like this:
+```javascript
+import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
+import logger from `wix-bi-logger`
+
+const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
+
+try {
+  await capsule.setItem('shahata', 123, { category: 'advertising' });
+} catch (e) {
+  if (e === COOKIE_CONSENT_DISALLOWED) {    
+    requestPermission()
+    logger.log('REQUESTED_PERMISSION', 'advertising');
+  } else {
+    displayErrorMessage()
+    logger.error('COOKIE_SETTING_FAILED', '$classname');
+  }
+}
+```
+
+That's all there is to it! You should now understand how to dynamically request and check for permissions in your app!
+
+### A Word of Caution
+Because all of this is at an experimental stage for all of us you are going to want a way to bypass all of this so that you can work on your project without having to make sure the entire permissions pipeline is working.
+
+We recommand wrapping all the permission dependant conditional logic in an `if` statement.
+
+```javascript
+If(gdprEnforced){
+//Run the conditional stuff here
+}else{
+//Do your regular stuff
+}
+```
+
+This way when working on other parts of your app you can simply set `gdprEnforced = false`, just remember to flip it back to  `true` and make sure everything runs smoothly before deploying!
+
