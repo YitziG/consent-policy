@@ -106,7 +106,7 @@ And in the browser like so:
 
 Please grant the following required permissions:
 
-- [ ] Stability
+- [ ]  Stability
 
 ### Real-time Permission Checks
 
