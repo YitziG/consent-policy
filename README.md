@@ -135,15 +135,15 @@ Here are the two changes you will need to make:
 
 1. On the top line, add COOKIE_CONTENT_DISALLOWED to your import.
 
-```javascript
-import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
-```
+    ```javascript
+    import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
+    ```
 
 2. Pass the cookie category along with the cookie in `capsule.setItem()`
 
-```javascript
-await capsule.setItem('shahata', 123, { category: 'advertising' });
-```
+    ```javascript
+    await capsule.setItem('shahata', 123, { category: 'advertising' });
+    ```
 
 This code will throw a `COOKIE_CONTENT_DISSALOWED` error if the user has not granted the appropriate permission.
 
