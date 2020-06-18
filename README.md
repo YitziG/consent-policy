@@ -138,6 +138,7 @@ Here are the two changes you will need to make:
 ```javascript
 import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
 ```
+
 2. Pass the cookie category along with the cookie in `capsule.setItem()`
 
 ```javascript
