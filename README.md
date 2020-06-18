@@ -131,16 +131,19 @@ Now to be GDPR compliant, we need to wrap that code in a try/catch that will pre
 
 We will also want to handle that situation gracefully by requesting the permission again or with some other appropriate flow.
 
-Here are the changes you will need to make:
+Here are the two changes you will need to make:
 
-1. On the top line, add COOKIE_CONTENT_DISALLOWED to your import
+1. On the top line, add COOKIE_CONTENT_DISALLOWED to your import.
+
 ```javascript
 import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
 ```
-2. Pass the cookie category along with the cookie in `capsule.setItem()
+2. Pass the cookie category along with the cookie in `capsule.setItem()`
+
 ```javascript
 await capsule.setItem('shahata', 123, { category: 'advertising' });
 ```
+
 This code will throw a `COOKIE_CONTENT_DISSALOWED` error if the user has not granted the appropriate permission.
 
 Therefore, this line needs to be wrapped in a try/catch block and handled appropriately.
