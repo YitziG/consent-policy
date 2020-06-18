@@ -110,7 +110,7 @@ Please grant the following required permissions:
 
 ### Real-time Permission Checks
 
-Now that you are requesting the appropriatte permissions you are going to want to make sure that the user has indeed granted the required permission before you store any identifying data in the users browser local storage or on Wix servers. We provide an easy way to do that integrated right into our ["data-capsule" library](https://github.com/wix/data-capsule).
+Now that you are requesting the appropriate permissions, you are going to want to make sure that the user has indeed granted the necessary consent before you store any identifying data in the user's browser or on Wix servers. We provide an easy way to do that integrated right into our ["data-capsule" library](https://github.com/wix/data-capsule).
 
 The data capsule library is a neat and easy way to store key/value data for your application. You can use it to store data on the user's browsers local storage as well as on Wix servers.
 
@@ -127,7 +127,9 @@ const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
 await capsule.setItem('shahata', 123);
 ```
 
-Now in order to be GDPR compliant we need to wrap that code in a try/catch that will throw and handle an error if the appropriatte permission has not been granted. 
+Now to be GDPR compliant, we need to wrap that code in a try/catch that will prevent the execution of the sensitive code if the user has not granted us the required permission.
+
+We will also want to handle that situation gracefully by requesting the permission again or with some other appropriate flow.
 
 Here are the changes you will need to make:
 
@@ -139,7 +141,7 @@ import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
 ```javascript
 await capsule.setItem('shahata', 123, { category: 'advertising' });
 ```
-This will throw a `COOKIE_CONTENT_DISSALOWED` error if the user has not granted the appropriatte permission.
+This code will throw a `COOKIE_CONTENT_DISSALOWED` error if the user has not granted the appropriate permission.
 
 Therefore, this line needs to be wrapped in a try/catch block and handled appropriately.
 
@@ -161,7 +163,7 @@ try {
 ```
 
 ### Logging Permission Requests, Responses, and Issues
-Since requesting and setting permissions at runtime can be complex and brings a new layer of dynamic branching to your application it is important to log app interactions and flow.
+Since requesting and setting permissions at runtime can be complicated and brings a new layer of dynamic branching to your application, it is vital to log app interactions and flow.
 
 The easiest way to do this is with the Wix [bi-logger](https://github.com/shahata/shahata.github.io/blob/master/sudoku-solver/bower_components/wix-bi-logger/README.md) package.
 
@@ -177,7 +179,7 @@ import logger from `wix-bi-logger`
 You can now log all relevant events and errors with:
 `logger.log(event, category);` and `logger.error(event, category);`
 
-For example using our previous example you might do something like this:
+Using our previous example, you might do something like this:
 ```javascript
 import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
 import logger from `wix-bi-logger`
@@ -197,12 +199,12 @@ try {
 }
 ```
 
-That's all there is to it! You should now understand how to dynamically request and check for permissions in your app!
+That's all there is to it! You should now understand how to request and check for permissions in your app dynamically!
 
 ### A Word of Caution
-Because all of this is at an experimental stage for all of us you are going to want a way to bypass all of this so that you can work on your project without having to make sure the entire permissions pipeline is working.
+This process is at an experimental stage, so you are going to want a way to bypass all of this so that you can work on your project without having to make sure the entire permissions pipeline is working.
 
-We recommand wrapping all the permission dependant conditional logic in an `if` statement.
+We recommend wrapping all the permission dependant conditional logic in an `if` statement.
 
 ```javascript
 If(gdprEnforced){
@@ -212,5 +214,4 @@ If(gdprEnforced){
 }
 ```
 
-This way when working on other parts of your app you can simply set `gdprEnforced = false`, just remember to flip it back to  `true` and make sure everything runs smoothly before deploying!
-
+This way, when working on other parts of your app, you can set `gdprEnforced = false`, remember to flip it back to  `true` and make sure everything runs smoothly before deploying!
