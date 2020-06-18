@@ -107,3 +107,55 @@ And in the browser like so:
 Please grant the following required permissions:
 
 - [ ] Stability
+
+### Real-time Permission Checks
+
+Now that you are requesting the appropriatte permissions you are going to want to make sure that the user has indeed granted the required permission before you store any identifying data in the users browser local storage or on Wix servers. We provide an easy way to do that integrated right into our ["data-capsule" library](https://github.com/wix/data-capsule).
+
+The data capsule library is a neat and easy way to store key/value data for your application. You can use it to store data on the user's browsers local storage as well as on Wix servers.
+
+First use your package manager (we recommend NPM) to install the ["data-capsule"](https://github.com/wix/data-capsule) package. 
+```shell
+npm install --save data-capsule
+```
+
+In the past (before GDPR) setting a browser cookie was as simple as:
+```javascript
+import {LocalStorageCapsule} from 'data-capsule';
+
+const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
+await capsule.setItem('shahata', 123);
+```
+
+Now in order to be GDPR compliant we need to wrap that code in a try/catch that will throw and handle an error if the appropriatte permission has not been granted. 
+
+Here are the changes you will need to make:
+
+1. On the top line, add COOKIE_CONTENT_DISALLOWED to your import
+```javascript
+import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
+```
+2. Pass the cookie category along with the cookie in `capsule.setItem()
+```javascript
+await capsule.setItem('shahata', 123, { category: 'advertising' });
+```
+This will throw a `COOKIE_CONTENT_DISSALOWED` error if the user has not granted the appropriatte permission.
+
+Therefore, this line needs to be wrapped in a try/catch block and handled appropriately.
+
+Your code should now look something like this:
+```javascript
+import { LocalStorageCapsule, COOKIE_CONSENT_DISALLOWED } from 'data-capsule';
+
+const capsule = LocalStorageCapsule({namespace: '${your-app-namespace}'});
+
+try {
+  await capsule.setItem('shahata', 123, { category: 'advertising' });
+} catch (e) {
+  if (e === COOKIE_CONSENT_DISALLOWED) {
+    requestPermission()
+  } else {
+    displayErrorMessage()
+  }
+}
+```
