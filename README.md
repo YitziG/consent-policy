@@ -166,7 +166,7 @@ try {
 ```
 
 ### Logging Permission Requests, Responses, and Issues
-Since requesting and setting permissions at runtime can be complicated and brings a new layer of dynamic branching to your application, it is vital to log app interactions and flow.
+Since requesting and setting permissions at runtime can be complicated, and brings a new layer of dynamic branching to your application, it is vital to log app interactions and flow.
 
 The easiest way to do this is with the Wix [bi-logger](https://github.com/shahata/shahata.github.io/blob/master/sudoku-solver/bower_components/wix-bi-logger/README.md) package.
 
