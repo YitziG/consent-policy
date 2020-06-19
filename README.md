@@ -4,7 +4,7 @@ Our legal team requires us to ensure that all new and existing projects are full
 
 A big part of being GDPR compliant is getting explicit user permission when creating or accessing information that could potentially be used to identify or track users.
 
-For specific categories of user information (i.e., Cookies), permission needs to be requested from the user at runtime, before we can execute the "sensitive" code.
+For specific categories of user information (i.e., cookies), permission needs to be requested from the user at runtime, before we can execute the "sensitive" code.
 
 Therefore, it is crucial to have a clear picture of exactly which categories of permissions your app will need to request so that you can do so in the right place and at the right time.
 
